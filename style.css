@@ -1,0 +1,63 @@
+/* Estilos generales del cuerpo de la página */
+body {
+    background-color: #000000; /* Fondo negro */
+    color: #ffffff; /* Color de texto principal: blanco */
+    font-family: Arial, sans-serif; /* Tipo de letra legible */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilo para el título principal */
+header h1 {
+    text-align: center; /* Centra el título */
+    font-size: 3em; /* Tamaño de letra grande */
+    color: #f0f0f0; /* Un blanco ligeramente menos intenso */
+    margin-bottom: 40px;
+}
+
+/* Contenedor principal para todos los productos */
+.product-container {
+    display: flex; /* Activa Flexbox para alinear elementos */
+    flex-wrap: wrap; /* Permite que los productos se ajusten a la siguiente línea si no caben */
+    justify-content: center; /* Centra las tarjetas de producto */
+    gap: 30px; /* Espacio entre cada tarjeta de producto */
+}
+
+/* Estilo individual para cada tarjeta de producto */
+.product-card {
+    background-color: #1c1c1c; /* Fondo gris oscuro para que resalte del negro */
+    border: 1px solid #333; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 20px;
+    width: 300px; /* Ancho fijo para cada tarjeta */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); /* Sombra muy sutil */
+}
+
+/* Estilo para las imágenes de los productos */
+.product-card img {
+    max-width: 100%; /* La imagen nunca será más ancha que su contenedor */
+    height: auto;
+    border-radius: 5px; /* Bordes redondeados para la imagen */
+    margin-bottom: 15px;
+}
+
+/* Estilo para el nombre del producto */
+.product-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+/* Estilo para el precio */
+.product-card .price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #28a745; /* Color verde para destacar el precio */
+    margin-bottom: 15px;
+}
+
+/* Estilo para la descripción del producto */
+.product-card p {
+    font-size: 0.9em;
+    color: #cccccc; /* Gris claro para la descripción */
+}
