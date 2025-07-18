@@ -1,89 +1,159 @@
-/* Estilos generales */
-body {
-    background-color: #000000; /* Fondo negro */
-    color: #ffffff; /* Texto blanco para contraste */
-    font-family: Arial, sans-serif; /* Una fuente legible */
-    margin: 0;
-    padding: 0;
+/* =================================================================
+   1. VARIABLES DE COLOR Y CONFIGURACIÓN GLOBAL
+   ================================================================= */
+
+:root {
+    --color-fondo: #0a0a0a;            /* Un negro un poco menos puro */
+    --color-tarjeta: #1a1a1a;        /* Gris oscuro para las tarjetas */
+    --color-texto-principal: #f0f0f0; /* Blanco suave para el texto */
+    --color-texto-secundario: #a0a0a0;/* Gris claro para descripciones */
+    --color-acento: #00aaff;          /* Un azul vibrante como nuevo acento */
+    --color-borde: #333333;           /* Borde sutil para las tarjetas */
 }
 
-/* Encabezado y Título Principal */
+/* --- Reseteo y Estilos Generales del Cuerpo --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+}
+
+
+/* =================================================================
+   2. ENCABEZADO Y TÍTULOS
+   ================================================================= */
+
 header {
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
 }
 
 h1 {
-    font-size: 2.5rem; /* Tamaño grande para el título */
-    color: #f0f0f0; /* Un blanco no tan puro */
+    font-size: 3rem;
+    color: var(--color-texto-principal);
+    font-weight: 700;
 }
 
-/* === NUEVO: Estilo para la sección de cada categoría === */
 .category-section {
-    margin-bottom: 3rem; /* Espacio debajo de cada bloque de categoría */
+    padding: 1rem;
+    margin-bottom: 3rem;
+    text-align: center; /* Centra el título h2 */
 }
 
-/* === NUEVO: Estilo para los títulos de categoría (Muebles, Cocina, etc.) === */
 .category-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: #ffffff;
-    border-bottom: 2px solid #4CAF50; /* Línea inferior verde para resaltar */
-    display: inline-block; /* Para que el borde solo ocupe el ancho del texto */
+    font-size: 2.2rem;
+    display: inline-block;
     padding-bottom: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid var(--color-acento);
 }
 
-/* Contenedor de productos */
+
+/* =================================================================
+   3. CONTENEDOR DE PRODUCTOS (LA "GRILLA")
+   ================================================================= */
+
 .product-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que los productos pasen a la siguiente línea */
-    justify-content: center; /* Centra los productos en el contenedor */
-    gap: 2rem; /* Espacio entre los productos */
-    padding: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem; /* Espacio entre las tarjetas */
 }
 
-/* Tarjeta de cada producto */
+
+/* =================================================================
+   4. TARJETA DE PRODUCTO INDIVIDUAL
+   ================================================================= */
+
 .product-card {
-    background-color: #1a1a1a; /* Un gris muy oscuro para destacar del fondo */
-    border: 1px solid #333; /* Un borde sutil */
-    border-radius: 8px; /* Bordes redondeados */
+    background-color: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
     padding: 1.5rem;
-    width: 300px; /* Ancho fijo para cada tarjeta */
+    width: 320px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); /* Sombra muy sutil */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
+    
+    /* --- Efecto de transición suave --- */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Imagen del producto */
+/* --- Efecto Interactivo al pasar el mouse --- */
+.product-card:hover {
+    transform: translateY(-8px); /* Levanta la tarjeta */
+    box-shadow: 0 8px 25px rgba(0, 170, 255, 0.2); /* Sombra con el color de acento */
+    border-color: var(--color-acento);
+}
+
+/* --- Elementos dentro de la tarjeta --- */
+
 .product-card img {
-    max-width: 100%;
-    height: 250px; /* Altura fija para las imágenes */
-    object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
-    border-radius: 4px; /* Bordes redondeados para la imagen */
-    margin-bottom: 1rem;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
 }
 
-/* Nombre del producto */
 .product-card h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: #ffffff;
-    flex-grow: 1; /* Empuja el precio y descripción hacia abajo */
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-texto-principal);
+    flex-grow: 1; /* Ayuda a alinear los botones en tarjetas de distinta altura de texto */
 }
 
-/* Precio del producto */
 .product-card .price {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
-    color: #4CAF50; /* Un color verde para el precio */
+    color: var(--color-acento);
     margin-bottom: 1rem;
 }
 
-/* Descripción del producto */
 .product-card p {
-    font-size: 0.9rem;
-    color: #cccccc; /* Un gris claro para la descripción */
-    line-height: 1.4;
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+}
+
+
+/* =================================================================
+   5. DISEÑO ADAPTABLE (RESPONSIVE)
+   ================================================================= */
+
+/* --- Para Tablets y pantallas más pequeñas --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .category-section h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* --- Para Teléfonos Móviles --- */
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .product-card {
+        width: 100%; /* Las tarjetas ocupan todo el ancho */
+    }
+
+    .product-container {
+        gap: 1.5rem;
+    }
 }
