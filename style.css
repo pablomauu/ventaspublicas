@@ -1,63 +1,89 @@
-/* Estilos generales del cuerpo de la página */
+/* Estilos generales */
 body {
     background-color: #000000; /* Fondo negro */
-    color: #ffffff; /* Color de texto principal: blanco */
-    font-family: Arial, sans-serif; /* Tipo de letra legible */
+    color: #ffffff; /* Texto blanco para contraste */
+    font-family: Arial, sans-serif; /* Una fuente legible */
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
-/* Estilo para el título principal */
-header h1 {
-    text-align: center; /* Centra el título */
-    font-size: 3em; /* Tamaño de letra grande */
-    color: #f0f0f0; /* Un blanco ligeramente menos intenso */
-    margin-bottom: 40px;
+/* Encabezado y Título Principal */
+header {
+    text-align: center;
+    padding: 2rem 1rem;
 }
 
-/* Contenedor principal para todos los productos */
+h1 {
+    font-size: 2.5rem; /* Tamaño grande para el título */
+    color: #f0f0f0; /* Un blanco no tan puro */
+}
+
+/* === NUEVO: Estilo para la sección de cada categoría === */
+.category-section {
+    margin-bottom: 3rem; /* Espacio debajo de cada bloque de categoría */
+}
+
+/* === NUEVO: Estilo para los títulos de categoría (Muebles, Cocina, etc.) === */
+.category-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
+    border-bottom: 2px solid #4CAF50; /* Línea inferior verde para resaltar */
+    display: inline-block; /* Para que el borde solo ocupe el ancho del texto */
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Contenedor de productos */
 .product-container {
-    display: flex; /* Activa Flexbox para alinear elementos */
-    flex-wrap: wrap; /* Permite que los productos se ajusten a la siguiente línea si no caben */
-    justify-content: center; /* Centra las tarjetas de producto */
-    gap: 30px; /* Espacio entre cada tarjeta de producto */
+    display: flex;
+    flex-wrap: wrap; /* Permite que los productos pasen a la siguiente línea */
+    justify-content: center; /* Centra los productos en el contenedor */
+    gap: 2rem; /* Espacio entre los productos */
+    padding: 1rem;
 }
 
-/* Estilo individual para cada tarjeta de producto */
+/* Tarjeta de cada producto */
 .product-card {
-    background-color: #1c1c1c; /* Fondo gris oscuro para que resalte del negro */
-    border: 1px solid #333; /* Borde sutil */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 20px;
+    background-color: #1a1a1a; /* Un gris muy oscuro para destacar del fondo */
+    border: 1px solid #333; /* Un borde sutil */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 1.5rem;
     width: 300px; /* Ancho fijo para cada tarjeta */
     text-align: center;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); /* Sombra muy sutil */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Estilo para las imágenes de los productos */
+/* Imagen del producto */
 .product-card img {
-    max-width: 100%; /* La imagen nunca será más ancha que su contenedor */
-    height: auto;
-    border-radius: 5px; /* Bordes redondeados para la imagen */
-    margin-bottom: 15px;
+    max-width: 100%;
+    height: 250px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin deformarse */
+    border-radius: 4px; /* Bordes redondeados para la imagen */
+    margin-bottom: 1rem;
 }
 
-/* Estilo para el nombre del producto */
+/* Nombre del producto */
 .product-card h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+    flex-grow: 1; /* Empuja el precio y descripción hacia abajo */
 }
 
-/* Estilo para el precio */
+/* Precio del producto */
 .product-card .price {
-    font-size: 1.2em;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #28a745; /* Color verde para destacar el precio */
-    margin-bottom: 15px;
+    color: #4CAF50; /* Un color verde para el precio */
+    margin-bottom: 1rem;
 }
 
-/* Estilo para la descripción del producto */
+/* Descripción del producto */
 .product-card p {
-    font-size: 0.9em;
-    color: #cccccc; /* Gris claro para la descripción */
+    font-size: 0.9rem;
+    color: #cccccc; /* Un gris claro para la descripción */
+    line-height: 1.4;
 }
