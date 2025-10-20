@@ -1,393 +1,382 @@
 /* =================================================================
-   1. VARIABLES DE COLOR Y CONFIGURACIÓN GLOBAL
-   ================================================================= */
+   1. VARIABLES DE COLOR Y CONFIGURACIÓN GLOBAL
+   ================================================================= */
 
 :root {
-    --color-fondo: #0a0a0a;
-    --color-tarjeta: #1a1a1a;
-    --color-texto-principal: #f0f0f0;
-    --color-texto-secundario: #a0a0a0;
-    --color-acento: #00aaff;
-    --color-borde: #333333;
+    --color-fondo: #0a0a0a;
+    --color-tarjeta: #1a1a1a;
+    --color-texto-principal: #f0f0f0;
+    --color-texto-secundario: #a0a0a0;
+    --color-acento: #00aaff;
+    --color-borde: #333333;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--color-fondo);
-    color: var(--color-texto-principal);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    line-height: 1.6;
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
 }
 
 /* =================================================================
-   2. ENCABEZADO Y TÍTULOS
-   ================================================================= */
+   2. ENCABEZADO Y TÍTULOS
+   ================================================================= */
 
 header {
-    text-align: center;
-    padding: 3rem 1rem;
+    text-align: center;
+    padding: 3rem 1rem;
 }
 
 h1 {
-    font-size: 3rem;
-    color: var(--color-texto-principal);
-    font-weight: 700;
+    font-size: 3rem;
+    color: var(--color-texto-principal);
+    font-weight: 700;
 }
 
 .category-section {
-    padding: 1rem;
-    margin-bottom: 3rem;
-    text-align: center;
+    padding: 1rem;
+    margin-bottom: 3rem;
+    text-align: center;
 }
 
 .category-section h2 {
-    font-size: 2.2rem;
-    display: inline-block;
-    padding-bottom: 0.5rem;
-    margin-bottom: 2.5rem;
-    border-bottom: 3px solid var(--color-acento);
+    font-size: 2.2rem;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid var(--color-acento);
 }
 
 /* =================================================================
-   3. CONTENEDOR DE PRODUCTOS (GRILLA MEJORADA)
-   ================================================================= */
+   3. CONTENEDOR DE PRODUCTOS (GRILLA MEJORADA)
+   ================================================================= */
 
 .product-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    padding: 0 1rem;
-    max-width: 1400px;
-    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 /* =================================================================
-   4. TARJETA DE PRODUCTO (MEJORADA PARA MÚLTIPLES IMÁGENES)
-   ================================================================= */
+   4. TARJETA DE PRODUCTO (MEJORADA PARA MÚLTIPLES IMÁGENES)
+   ================================================================= */
 
 .product-card {
-    background-color: var(--color-tarjeta);
-    border: 1px solid var(--color-borde);
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    position: relative;
+    background-color: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(0, 170, 255, 0.2);
-    border-color: var(--color-acento);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 170, 255, 0.2);
+    border-color: var(--color-acento);
 }
 
-/* Contenedor para las imágenes - MODIFICADO */
+/* Contenedor para las imágenes - MODIFICADO para cuadrícula */
 .images-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas de ancho igual */
-    gap: 8px;
-    margin-bottom: 1.5rem;
+    display: grid;
+    /*        *** MODIFICACIÓN CLAVE ***
+       Define 3 columnas de igual ancho (1fr). Si hay más imágenes, 
+       pasarán automáticamente a la siguiente fila, creando la cuadrícula.
+    */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 8px;
+    margin-bottom: 1.5rem;
 }
 
 /* Wrapper para imágenes clickeables */
 .image-wrapper {
-    display: block;
-    cursor: zoom-in;
-    transition: transform 0.3s;
-    border-radius: 6px;
-    overflow: hidden;
-    width: 100%;
+    display: block;
+    cursor: zoom-in;
+    transition: transform 0.3s;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .image-wrapper:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
 }
 
 /* Estilo base para todas las imágenes */
 .product-card img {
-    width: 100%;
-    height: 120px; /* Altura fija para uniformidad */
-    object-fit: cover;
-    display: block;
-    border-radius: 6px;
+    width: 100%;
+    height: 120px; /* Altura uniforme para las miniaturas */
+    object-fit: cover;
+    display: block;
 }
 
-/* Cuando hay solo una imagen, hacerla más grande */
+/* Cuando hay solo una imagen, hacerla más grande - AJUSTADO */
 .images-container:has(.image-wrapper:only-child) {
-    grid-template-columns: 1fr; /* Una sola columna */
+     /* Si solo hay 1, se ajusta a 1 columna para que la imagen ocupe el 100% del ancho */
+     grid-template-columns: 1fr; 
 }
 
 .images-container:has(.image-wrapper:only-child) img {
-    height: 220px;
-}
-
-/* Si quieres 4 columnas para más imágenes */
-.images-container.four-columns {
-    grid-template-columns: repeat(4, 1fr);
+    height: 220px;
 }
 
 .product-card h3 {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
-    color: var(--color-texto-principal);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-texto-principal);
 }
 
 .product-card .price {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: var(--color-acento);
-    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    margin-bottom: 1rem;
 }
 
 .product-card p {
-    font-size: 0.95rem;
-    color: var(--color-texto-secundario);
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+    margin-bottom: 0.5rem;
 }
 
 /* =================================================================
-   5. MODAL PARA IMÁGENES EXPANDIDAS (MEJORADO CON NAVEGACIÓN)
-   ================================================================= */
+   5. MODAL PARA IMÁGENES EXPANDIDAS (MEJORADO CON NAVEGACIÓN)
+   ================================================================= */
 
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    overflow: auto;
-    animation: fadeIn 0.3s;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+    animation: fadeIn 0.3s;
 }
 
 .modal-content {
-    display: block;
-    margin: 60px auto;
-    max-width: 90%;
-    max-height: calc(100vh - 120px);
-    border: 3px solid var(--color-tarjeta);
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
-    animation: zoomIn 0.3s;
-    position: relative;
+    display: block;
+    margin: 60px auto;
+    max-width: 90%;
+    max-height: calc(100vh - 120px);
+    border: 3px solid var(--color-tarjeta);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+    animation: zoomIn 0.3s;
+    position: relative;
 }
 
 .close-btn {
-    position: absolute;
-    top: 25px;
-    right: 35px;
-    color: var(--color-texto-principal);
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    z-index: 1002;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: var(--color-texto-principal);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 1002;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 .close-btn:hover {
-    color: var(--color-acento);
-    background-color: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
+    color: var(--color-acento);
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
 }
 
 /* Flechas de navegación SOBRE LA IMAGEN */
 .nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-texto-principal);
-    font-size: 40px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 1002;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    user-select: none;
-    opacity: 0.8;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-texto-principal);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1002;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    user-select: none;
+    opacity: 0.8;
 }
 
 .nav-btn:hover {
-    color: var(--color-acento);
-    background-color: rgba(0, 0, 0, 0.8);
-    opacity: 1;
-    transform: translateY(-50%) scale(1.1);
+    color: var(--color-acento);
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .prev-btn {
-    left: 25px;
+    left: 25px;
 }
 
 .next-btn {
-    right: 25px;
+    right: 25px;
 }
 
 /* Contador de imágenes */
 .image-counter {
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: var(--color-texto-principal);
-    font-size: 18px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 8px 20px;
-    border-radius: 20px;
-    z-index: 1002;
-    font-weight: 500;
-    backdrop-filter: blur(5px);
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-texto-principal);
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px 20px;
+    border-radius: 20px;
+    z-index: 1002;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
 }
 
 /* Animaciones */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes zoomIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
 
 /* =================================================================
-   6. DISEÑO ADAPTABLE (RESPONSIVE)
-   ================================================================= */
+   6. DISEÑO ADAPTABLE (RESPONSIVE)
+   ================================================================= */
 
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem;
-    }
+    h1 {
+        font-size: 2.5rem;
+    }
 
-    .category-section h2 {
-        font-size: 1.8rem;
-    }
-    
-    .product-container {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
+    .category-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .product-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
 
-    /* Ajuste para imágenes en tablet */
-    .images-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
-    }
+    .modal-content {
+        max-width: 95%;
+        margin: 50px auto;
+    }
 
-    .images-container:has(.image-wrapper:only-child) img {
-        height: 200px;
-    }
+    .close-btn {
+        top: 15px;
+        right: 25px;
+        font-size: 35px;
+        width: 45px;
+        height: 45px;
+    }
 
-    .modal-content {
-        max-width: 95%;
-        margin: 50px auto;
-    }
+    .nav-btn {
+        font-size: 35px;
+        width: 50px;
+        height: 50px;
+    }
 
-    .close-btn {
-        top: 15px;
-        right: 25px;
-        font-size: 35px;
-        width: 45px;
-        height: 45px;
-    }
+    .prev-btn {
+        left: 15px;
+    }
 
-    .nav-btn {
-        font-size: 35px;
-        width: 50px;
-        height: 50px;
-    }
-
-    .prev-btn {
-        left: 15px;
-    }
-
-    .next-btn {
-        right: 15px;
-    }
-    
-    .image-counter {
-        font-size: 16px;
-        padding: 6px 16px;
-        bottom: 20px;
-    }
+    .next-btn {
+        right: 15px;
+    }
+    
+    .image-counter {
+        font-size: 16px;
+        padding: 6px 16px;
+        bottom: 20px;
+    }
 }
 
 @media (max-width: 480px) {
-    body {
-        padding: 0.5rem;
-    }
+    body {
+        padding: 0.5rem;
+    }
 
-    h1 {
-        font-size: 2rem;
-    }
-    
-    .product-container {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Una sola columna para imágenes en móvil */
-    .images-container {
-        grid-template-columns: 1fr;
-    }
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .product-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Mejoras para imágenes múltiples en móvil */
+    .images-container {
+        /* Muestra 3 columnas incluso en móvil, ajustando el tamaño */
+        grid-template-columns: repeat(3, 1fr); 
+    }
 
-    .images-container:has(.image-wrapper:only-child) img {
-        height: 180px;
-    }
+    .modal-content {
+        max-width: 100%;
+        border-radius: 0;
+        border: none;
+        margin: 0;
+        height: 100vh;
+        max-height: 100vh;
+        object-fit: contain;
+    }
 
-    .modal-content {
-        max-width: 100%;
-        border-radius: 0;
-        border: none;
-        margin: 0;
-        height: 100vh;
-        max-height: 100vh;
-        object-fit: contain;
-    }
-
-    .nav-btn {
-        font-size: 30px;
-        width: 45px;
-        height: 45px;
-    }
-    
-    .close-btn {
-        top: 10px;
-        right: 15px;
-        width: 40px;
-        height: 40px;
-        font-size: 30px;
-    }
-    
-    .image-counter {
-        bottom: 15px;
-        font-size: 14px;
-        padding: 5px 14px;
-    }
+    .nav-btn {
+        font-size: 30px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .close-btn {
+        top: 10px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 30px;
+    }
+    
+    .image-counter {
+        bottom: 15px;
+        font-size: 14px;
+        padding: 5px 14px;
+    }
 }
 
 /* Efecto de desvanecimiento para las flechas en dispositivos táctiles */
 @media (hover: none) {
-    .nav-btn {
-        opacity: 0.6;
-    }
-    
-    .nav-btn:active {
-        opacity: 1;
-        background-color: rgba(0, 0, 0, 0.8);
-    }
+    .nav-btn {
+        opacity: 0.6;
+    }
+    
+    .nav-btn:active {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
 }
