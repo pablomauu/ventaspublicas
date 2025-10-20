@@ -4,99 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venta de Productos</title>
+    
     <style>
-        /* Estilos base similares a tu código original */
+        /* --- Estilos Globales (Mobile First) --- */
+        
+        /* Un reseteo básico para que todo se comporte igual */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-        
+
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f4f7;
             color: #333;
-            background-color: #f5f5f5;
+            line-height: 1.5;
         }
+
+        /* Hacemos que todas las imágenes sean responsivas por defecto */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px; /* Pequeño redondeo para las imágenes */
+        }
+
+        /* --- Estilos del Layout --- */
         
         header {
-            background-color: #2c3e50;
-            color: white;
+            background-color: #ffffff;
+            padding: 20px 15px;
             text-align: center;
-            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #ddd;
         }
-        
+
         header h1 {
-            font-size: 1.8rem;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-        
-        .category-section {
-            margin-bottom: 2rem;
-        }
-        
-        .category-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.8em;
             color: #2c3e50;
-            border-bottom: 2px solid #2c3e50;
-            padding-bottom: 0.5rem;
         }
+
+        main {
+            /* Padding para que el contenido no se pegue a los bordes en mobile */
+            padding: 20px 15px;
+            max-width: 1200px; /* Ancho máximo para pantallas grandes */
+            margin: 0 auto;     /* Centra el contenido en pantallas grandes */
+        }
+
+        .category-section h2 {
+            font-size: 1.5em;
+            color: #34495e;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 10px;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        /* --- Contenedor de Productos (Mobile First) --- */
         
         .product-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            justify-content: center;
+            flex-direction: column; /* En mobile, apilamos los productos verticalmente */
+            gap: 25px; /* Espacio entre las tarjetas */
         }
+
+        /* --- Tarjeta de Producto --- */
         
         .product-card {
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 1rem;
-            width: 300px;
-            margin-bottom: 1rem;
-        }
-        
-        .image-wrapper {
-            display: inline-block;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .image-wrapper img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 3px;
-            cursor: pointer;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Para que el shadow se vea bien */
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
         }
         
         .product-card h3 {
-            font-size: 1.1rem;
-            margin: 0.5rem 0;
-            color: #2c3e50;
+            font-size: 1.25em;
+            margin-top: 15px;
+            margin-bottom: 8px;
         }
         
-        .price {
-            font-size: 1.2rem;
+        .product-card .price {
+            font-size: 1.15em;
             font-weight: bold;
-            color: #e74c3c;
-            margin: 0.5rem 0;
+            color: #27ae60; /* Un verde para el precio */
+            margin-bottom: 12px;
         }
-        
+
         .product-card p {
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        /* --- Imágenes del Producto --- */
+
+        /* Usamos flexbox para alinear las imágenes pequeñas horizontalmente */
+        .product-card .image-wrapper {
+            display: inline-block; /* Las hacemos fluir */
+            width: 31%; /* Aprox 3 imágenes por fila */
+            margin: 1%;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: opacity 0.2s;
         }
         
-        /* Modal para imágenes expandidas */
+        .product-card .image-wrapper:hover {
+            opacity: 0.8;
+        }
+
+        .product-card .image-wrapper img {
+            /* Hacemos las imágenes cuadradas para que se vean ordenadas */
+            aspect-ratio: 1 / 1;
+            object-fit: cover; /* Evita que la imagen se deforme */
+        }
+
+
+        /* --- Modal de Imagen (Ya estaba bien) --- */
+        
         .modal {
             display: none;
             position: fixed;
@@ -105,20 +133,18 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding-top: 60px; /* Espacio para el botón de cerrar */
         }
-        
+
         .modal-content {
-            display: block;
             margin: auto;
-            max-width: 95%;
-            max-height: 95%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            display: block;
+            width: 90%; /* Más adaptable en mobile */
+            max-width: 700px; /* Límite en desktop */
         }
-        
+
         .close-btn {
             position: absolute;
             top: 15px;
@@ -127,64 +153,56 @@
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
-            z-index: 1001;
+            transition: color 0.2s;
         }
-        
+
         .close-btn:hover {
             color: #bbb;
         }
-        
-        /* Media queries para móvil - MÍNIMAS modificaciones */
-        @media (max-width: 768px) {
+
+
+        /* ===========================================================
+         MEDIA QUERY: La Magia para Desktop 
+         
+         Estos estilos SOLO se aplican si la pantalla 
+         mide 768px o MÁS (tablets y desktops).
+         ===========================================================
+        */
+        @media (min-width: 768px) {
+            
             main {
-                padding: 0.5rem;
+                padding: 30px; /* Más padding en desktop */
             }
+
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            /* --- Contenedor de Productos (Desktop) --- */
             
             .product-container {
-                justify-content: space-around;
+                /* Cambiamos a Grid para mostrar múltiples columnas */
+                display: grid;
+                
+                /* Crea columnas automáticas:
+                  - Intenta que midan 350px.
+                  - Si no entran, las achica (minmax).
+                  - Si sobran espacio, las agranda (1fr).
+                  - auto-fit: crea tantas columnas como quepan.
+                */
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 30px; /* Más espacio entre tarjetas en desktop */
             }
-            
+
             .product-card {
-                width: 100%;
-                max-width: 400px;
+                padding: 20px;
+                /* Efecto sutil al pasar el mouse */
+                transition: transform 0.2s ease, box-shadow 0.2s ease;
             }
-            
-            .image-wrapper img {
-                width: 70px;
-                height: 70px;
-            }
-            
-            header h1 {
-                font-size: 1.5rem;
-            }
-            
-            .category-section h2 {
-                font-size: 1.3rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .product-card {
-                padding: 0.8rem;
-            }
-            
-            .image-wrapper img {
-                width: 60px;
-                height: 60px;
-            }
-            
-            header h1 {
-                font-size: 1.3rem;
-            }
-            
-            .category-section h2 {
-                font-size: 1.2rem;
-            }
-            
-            .close-btn {
-                font-size: 30px;
-                top: 10px;
-                right: 20px;
+
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             }
         }
     </style>
@@ -196,24 +214,28 @@
     </header>
 
     <main>
-        <section class="category-section">
-            <h2>Informática y Electrónica</h2>
+
+         <section class="category-section">
+            <h2>Informática y ELectrónica</h2>
             <div class="product-container">
+
+                                            
                 <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX3070_4.jpg')">
-                        <img src="img/RTX3070_4.jpg" alt="GeForce RTX 3070">
+                        <img src="img/RTX3070_4.jpg" alt="RTX 3070">
                     </a>                     
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX 3070.jpg')">
-                        <img src="img/RTX 3070.jpg" alt="GeForce RTX 3070">
+                        <img src="img/RTX 3070.jpg" alt="RTX 3070">
                     </a>
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX 3070_2.jpg')">
-                        <img src="img/RTX 3070_2.jpg" alt="GeForce RTX 3070">
+                        <img src="img/RTX 3070_2.jpg" alt="RTX 3070">
                     </a>
                     <h3>GeForce RTX™ 3070 GAMING OC</h3>
                     <p class="price">$680.000 o 450 USD</p>
                     <p>MUY POCO USO. Se uso para algunos juegos. Retiro: CABA,Saavedra.</p>
                 </div>
 
+                
                 <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/calefactorelectrico1.JPG')">
                         <img src="img/calefactorelectrico1.JPG" alt="Panel calefactor eléctrico Liliana">
@@ -225,12 +247,14 @@
                     <p class="price">$120.000 o 80 USD</p>
                     <p>C/ MUY POCO USO. Marca: Liliana, Modelo: PPV 500. Panel de vidrio con turbina. Retiro: CABA, Saavedra.</p>
                 </div>
-            </div>
-        </section>    
+
+            </section>    
         
         <section class="category-section">
             <h2>Muebles y Hogar</h2>
             <div class="product-container">
+
+
                 <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/mesaysillas.jpg')">
                         <img src="img/mesaysillas.jpg" alt="Juego de Mesa y Sillas">
@@ -239,7 +263,7 @@
                         <img src="img/patasmesa.jpg" alt="Patas de la mesa">
                     </a>
                     <h3>Juego Mesa Maciza Laqueada + 8 Sillas</h3>
-                    <p class="price">$450.000 o 300 USD</p>
+                    <p class="price">$450.000 o 300 USD)</p>
                     <p>En MUY buen estado. Mesa de 220x100x80. 8 sillas tapizadas en Lino. Retiro: CABA, Villa General Mitre.</p>
                 </div>
 
@@ -273,16 +297,19 @@
                     <p>Como nuevo. Material: Madera Maciza de álamo. Medidas: 178cm alto x 72cm ancho x 43cm prof. Retiro: CABA, Villa General Mitre.</p>
                 </div>
 
-                <div class="product-card">
+            
+                  <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica1.jpg')">
                         <img src="img/parrillaelectrica1.jpg" alt="parrilla electrica">
                     </a>
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica2.jpg')">
                         <img src="img/parrillaelectrica2.jpg" alt="parrilla electrica">
                     </a>
+                      </a>
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica3.jpg')">
                         <img src="img/parrillaelectrica3.jpg" alt="parrilla electrica">
                     </a>
+                     </a>
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica4.jpg')">
                         <img src="img/parrillaelectrica4.jpg" alt="parrilla electrica">
                     </a>
@@ -292,12 +319,13 @@
                     <p>Comen 3 a 5 personas , material de metal y plastico reforzado</p>
                     <p>Tamaño de coccion 38 x 28</p>
                 </div>
+                                    
 
                 <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/camaplegable1.jpg')">
                         <img src="img/camaplegable1.jpg" alt="Cama plegable de una plaza">
                     </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/camaplegable2.jpg')">
+                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/camaplegable2.jpg')">
                         <img src="img/camaplegable2.jpg" alt="Cama plegable de una plaza">
                     </a>
                     <h3>Cama Plegable</h3>
@@ -305,6 +333,7 @@
                     <p>Medidas: 1 PLAZA (190 x 90 cm). Plegable, con dos alturas. Retiro: CABA, Villa General Mitre.</p>
                 </div>
 
+                
                 <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/arbol_navidad.jpg')">
                         <img src="img/arbol_navidad.jpg" alt="Árbol de navidad en caja">
@@ -313,11 +342,14 @@
                     <p class="price">$130.000 (100 USD)</p>
                     <p>1 SOLO USO, COMO NUEVO. Marca: Cotidiana. Medida: 2,10m ALTO. Retiro: CABA, Saavedra.</p>
                 </div>
-            </div>
-        </section>                
-    </main>                            
+
+          </section>
+                
+                           
+     </main>                            
+                                                   
     
-    <!-- Modal para imágenes expandidas -->
+
     <div id="imageModal" class="modal">
         <span class="close-btn">&times;</span>
         <img class="modal-content" id="expandedImage">
@@ -331,12 +363,12 @@
             
             modal.style.display = "block";
             modalImg.src = imgSrc;
-            document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden"; // Bloquea scroll al abrir modal
         }
 
         document.querySelector(".close-btn").onclick = function() {
             document.getElementById("imageModal").style.display = "none";
-            document.body.style.overflow = "auto";
+            document.body.style.overflow = "auto"; // Restaura scroll al cerrar
         };
 
         window.onclick = function(event) {
