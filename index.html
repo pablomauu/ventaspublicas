@@ -1,185 +1,268 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Productos</title>
+/* =================================================================
+   1. VARIABLES DE COLOR Y CONFIGURACIÓN GLOBAL
+   ================================================================= */
+
+:root {
+    --color-fondo: #0a0a0a;
+    --color-tarjeta: #1a1a1a;
+    --color-texto-principal: #f0f0f0;
+    --color-texto-secundario: #a0a0a0;
+    --color-acento: #00aaff;
+    --color-borde: #333333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+}
+
+/* =================================================================
+   2. ENCABEZADO Y TÍTULOS
+   ================================================================= */
+
+header {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--color-texto-principal);
+    font-weight: 700;
+}
+
+.category-section {
+    padding: 1rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.category-section h2 {
+    font-size: 2.2rem;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid var(--color-acento);
+}
+
+/* =================================================================
+   3. CONTENEDOR DE PRODUCTOS (GRILLA MEJORADA)
+   ================================================================= */
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =================================================================
+   4. TARJETA DE PRODUCTO (CON SOPORTE PARA MÚLTIPLES IMÁGENES)
+   ================================================================= */
+
+.product-card {
+    background-color: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 170, 255, 0.2);
+    border-color: var(--color-acento);
+}
+
+/* Wrapper para imágenes clickeables */
+.image-wrapper {
+    display: block;
+    cursor: zoom-in;
+    transition: transform 0.3s;
+    margin-bottom: 1.5rem;
+}
+
+.image-wrapper:hover {
+    transform: scale(1.02);
+}
+
+/* Estilo base para todas las imágenes */
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Caso especial: Cuando hay exactamente 3 imágenes */
+.product-card img:first-child:nth-last-child(3),
+.product-card img:first-child:nth-last-child(3) ~ img {
+    width: calc(33.333% - 5.333px);
+    height: 120px;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.product-card img:first-child:nth-last-child(3):last-child,
+.product-card img:first-child:nth-last-child(3) ~ img:last-child {
+    margin-right: 0;
+}
+
+/* Clearfix para contener los floats */
+.product-card::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Ajuste para el título cuando hay 3 imágenes */
+.product-card img:first-child:nth-last-child(3) ~ h3 {
+    clear: both;
+    padding-top: 0.5rem;
+}
+
+.product-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-texto-principal);
+}
+
+.product-card .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    margin-bottom: 1rem;
+}
+
+.product-card p {
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+}
+
+/* =================================================================
+   5. MODAL PARA IMÁGENES EXPANDIDAS
+   ================================================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    display: block;
+    margin: 60px auto;
+    max-width: 90%;
+    max-height: calc(100vh - 120px);
+    border: 3px solid var(--color-tarjeta);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+    animation: zoomIn 0.3s;
+}
+
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: var(--color-texto-principal);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--color-acento);
+    transform: scale(1.2);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* =================================================================
+   6. DISEÑO ADAPTABLE (RESPONSIVE)
+   ================================================================= */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .category-section h2 {
+        font-size: 1.8rem;
+    }
     
-    <link rel="stylesheet" href="style.css">
+    .product-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
 
-</head>
-<body>
+    .modal-content {
+        max-width: 95%;
+        margin: 50px auto;
+    }
 
-    <header>
-        <h1>Venta de Productos 📦</h1>
-    </header>
+    .close-btn {
+        top: 15px;
+        right: 25px;
+        font-size: 35px;
+    }
+}
 
-    <main>
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
 
-         <section class="category-section">
-            <h2>Informática y ELectrónica</h2>
-            <div class="product-container">
-
-                                            
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX3070_4.jpg')">
-                        <img src="img/RTX3070_4.jpg" alt="Panel calefactor eléctrico Liliana">
-                    </a>                     
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX 3070.jpg')">
-                        <img src="img/RTX 3070.jpg" alt="Panel calefactor eléctrico Liliana">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX 3070_2.jpg')">
-                        <img src="img/RTX 3070_2.jpg" alt="Panel calefactor eléctrico Liliana">
-                    </a>
-                    <h3>GeForce RTX™ 3070 GAMING OC</h3>
-                    <p class="price">$680.000 o 450 USD</p>
-                    <p>MUY POCO USO. Se uso para algunos juegos. Retiro: CABA,Saavedra.</p>
-                </div>
-
-                
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/calefactorelectrico1.JPG')">
-                        <img src="img/calefactorelectrico1.JPG" alt="Panel calefactor eléctrico Liliana">
-                    </a>                     
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/calefactorelectrico2.jpg')">
-                        <img src="img/calefactorelectrico2.jpg" alt="Panel calefactor eléctrico Liliana">
-                    </a>
-                    <h3>Panel Calefactor Eléctrico</h3>
-                    <p class="price">$120.000 o 80 USD</p>
-                    <p>C/ MUY POCO USO. Marca: Liliana, Modelo: PPV 500. Panel de vidrio con turbina. Retiro: CABA, Saavedra.</p>
-                </div>
-
-            </section>    
-        
-        <section class="category-section">
-            <h2>Muebles y Hogar</h2>
-            <div class="product-container">
-
-
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/mesaysillas.jpg')">
-                        <img src="img/mesaysillas.jpg" alt="Juego de Mesa y Sillas">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/patasmesa.jpg')">
-                        <img src="img/patasmesa.jpg" alt="Patas de la mesa">
-                    </a>
-                    <h3>Juego Mesa Maciza Laqueada + 8 Sillas</h3>
-                    <p class="price">$450.000 o 300 USD)</p>
-                    <p>En MUY buen estado. Mesa de 220x100x80. 8 sillas tapizadas en Lino. Retiro: CABA, Villa General Mitre.</p>
-                </div>
-
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/sofa1.jpg')">
-                        <img src="img/sofa1.jpg" alt="Sofá ángulo frontal">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/sofa2.jpg')">
-                        <img src="img/sofa2.jpg" alt="Sofá ángulo lateral">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/sofa3.jpg')">
-                        <img src="img/sofa3.jpg" alt="Sofá vista superior">
-                    </a>
-                    <h3>Sillón o sofa 3 Cuerpos + Camastro (Esquinero)</h3>
-                    <p class="price">$350.000 o 230 USD</p>
-                    <p>En MUY buen estado, poco uso. Largo: 2 m. Tapizado en Chenille. Retiro: CABA, Villa General Mitre.</p>
-                </div>
-             
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/cristalero1.jpg')">
-                        <img src="img/cristalero1.jpg" alt="Vitrina cristalero frontal">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/cristalero2.jpg')">
-                        <img src="img/cristalero2.jpg" alt="Vitrina cristalero lateral">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/cristalero3.jpg')">
-                        <img src="img/cristalero3.jpg" alt="Vitrina cristalero interior">
-                    </a>
-                    <h3>Vitrina Cristalero de Madera Maciza</h3>
-                    <p class="price">$600.000 o 380 USD</p>
-                    <p>Como nuevo. Material: Madera Maciza de álamo. Medidas: 178cm alto x 72cm ancho x 43cm prof. Retiro: CABA, Villa General Mitre.</p>
-                </div>
-
-            
-                  <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica1.jpg')">
-                        <img src="img/parrillaelectrica1.jpg" alt="parrilla electrica">
-                    </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica2.jpg')">
-                        <img src="img/parrillaelectrica2.jpg" alt="parrilla electrica">
-                    </a>
-                      </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica3.jpg')">
-                        <img src="img/parrillaelectrica3.jpg" alt="parrilla electrica">
-                    </a>
-                     </a>
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica4.jpg')">
-                        <img src="img/parrillaelectrica4.jpg" alt="parrilla electrica">
-                    </a>
-                    <h3>Parrila Eléctrica BBQ + Funda</h3>
-                    <p class="price">$130.000 o 80 USD</p>
-                    <p>Medidas 96cm x 42cm 60cm . Retiro: CABA, Saavedra.</p>
-                    <p>Comen 3 a 5 personas , material de metal y plastico reforzado</p>
-                    <p>Tamaño de coccion 38 x 28</p>
-                </div>
-                                    
-
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/camaplegable1.jpg')">
-                        <img src="img/camaplegable1.jpg" alt="Cama plegable de una plaza">
-                    </a>
-                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/camaplegable2.jpg')">
-                        <img src="img/camaplegable2.jpg" alt="Cama plegable de una plaza">
-                    </a>
-                    <h3>Cama Plegable</h3>
-                    <p class="price">$72.000 o 45 USD</p>
-                    <p>Medidas: 1 PLAZA (190 x 90 cm). Plegable, con dos alturas. Retiro: CABA, Villa General Mitre.</p>
-                </div>
-
-                
-                <div class="product-card">
-                    <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/arbol_navidad.jpg')">
-                        <img src="img/arbol_navidad.jpg" alt="Árbol de navidad en caja">
-                    </a>
-                    <h3>Árbol de Navidad 🌲</h3>
-                    <p class="price">$130.000 (100 USD)</p>
-                    <p>1 SOLO USO, COMO NUEVO. Marca: Cotidiana. Medida: 2,10m ALTO. Retiro: CABA, Saavedra.</p>
-                </div>
-
-          </section>
-                
-                           
-     </main>                            
-                                                   
+    h1 {
+        font-size: 2rem;
+    }
     
+    .product-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Apilamiento vertical para imágenes múltiples en móvil */
+    .product-card img:first-child:nth-last-child(3),
+    .product-card img:first-child:nth-last-child(3) ~ img {
+        width: 100%;
+        height: 180px;
+        float: none;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
 
-    <div id="imageModal" class="modal">
-        <span class="close-btn">&times;</span>
-        <img class="modal-content" id="expandedImage">
-    </div>
-
-    <script>
-        function expandImage(event, imgSrc) {
-            event.preventDefault();
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("expandedImage");
-            
-            modal.style.display = "flex";
-            modalImg.src = imgSrc;
-            document.body.style.overflow = "hidden";
-        }
-
-        document.querySelector(".close-btn").onclick = function() {
-            document.getElementById("imageModal").style.display = "none";
-            document.body.style.overflow = "auto";
-        };
-
-        window.onclick = function(event) {
-            const modal = document.getElementById("imageModal");
-            if (event.target === modal) {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-        };
-    </script>
-
-</body>
-</html>
+    .modal-content {
+        max-width: 100%;
+        border-radius: 0;
+        border: none;
+    }
+}
