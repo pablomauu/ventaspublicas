@@ -154,7 +154,7 @@ h1 {
 }
 
 /* =================================================================
-   5. MODAL PARA IMÁGENES EXPANDIDAS
+   5. MODAL PARA IMÁGENES EXPANDIDAS (MEJORADO CON NAVEGACIÓN)
    ================================================================= */
 
 .modal {
@@ -190,11 +190,60 @@ h1 {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
+    z-index: 1001;
 }
 
 .close-btn:hover {
     color: var(--color-acento);
     transform: scale(1.2);
+}
+
+/* Flechas de navegación */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-texto-principal);
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 1001;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    user-select: none;
+}
+
+.nav-btn:hover {
+    color: var(--color-acento);
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev-btn {
+    left: 25px;
+}
+
+.next-btn {
+    right: 25px;
+}
+
+/* Contador de imágenes */
+.image-counter {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-texto-principal);
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 15px;
+    border-radius: 20px;
+    z-index: 1001;
 }
 
 /* Animaciones */
@@ -235,6 +284,20 @@ h1 {
         right: 25px;
         font-size: 35px;
     }
+
+    .nav-btn {
+        font-size: 35px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .prev-btn {
+        left: 15px;
+    }
+
+    .next-btn {
+        right: 15px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -264,5 +327,11 @@ h1 {
         max-width: 100%;
         border-radius: 0;
         border: none;
+    }
+
+    .nav-btn {
+        font-size: 30px;
+        width: 40px;
+        height: 40px;
     }
 }
