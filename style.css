@@ -67,7 +67,7 @@ h1 {
 }
 
 /* =================================================================
-   4. TARJETA DE PRODUCTO (CON SOPORTE PARA MÚLTIPLES IMÁGENES)
+   4. TARJETA DE PRODUCTO (MEJORADA PARA MÚLTIPLES IMÁGENES)
    ================================================================= */
 
 .product-card {
@@ -78,6 +78,8 @@ h1 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card:hover {
@@ -86,53 +88,38 @@ h1 {
     border-color: var(--color-acento);
 }
 
+/* Contenedor para las imágenes - NUEVO */
+.images-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+    margin-bottom: 1.5rem;
+}
+
 /* Wrapper para imágenes clickeables */
 .image-wrapper {
     display: block;
     cursor: zoom-in;
     transition: transform 0.3s;
-    margin-bottom: 1.5rem;
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .image-wrapper:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
 }
 
 /* Estilo base para todas las imágenes */
 .product-card img {
     width: 100%;
-    height: 220px;
+    height: 120px;
     object-fit: cover;
-    border-radius: 8px;
     display: block;
 }
 
-/* Caso especial: Cuando hay exactamente 3 imágenes */
-.product-card img:first-child:nth-last-child(3),
-.product-card img:first-child:nth-last-child(3) ~ img {
-    width: calc(33.333% - 5.333px);
-    height: 120px;
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 8px;
-}
-
-.product-card img:first-child:nth-last-child(3):last-child,
-.product-card img:first-child:nth-last-child(3) ~ img:last-child {
-    margin-right: 0;
-}
-
-/* Clearfix para contener los floats */
-.product-card::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Ajuste para el título cuando hay 3 imágenes */
-.product-card img:first-child:nth-last-child(3) ~ h3 {
-    clear: both;
-    padding-top: 0.5rem;
+/* Cuando hay solo una imagen, hacerla más grande - NUEVO */
+.images-container:has(.image-wrapper:only-child) img {
+    height: 220px;
 }
 
 .product-card h3 {
@@ -151,6 +138,7 @@ h1 {
 .product-card p {
     font-size: 0.95rem;
     color: var(--color-texto-secundario);
+    margin-bottom: 0.5rem;
 }
 
 /* =================================================================
@@ -335,14 +323,9 @@ h1 {
         grid-template-columns: 1fr;
     }
     
-    /* Apilamiento vertical para imágenes múltiples en móvil */
-    .product-card img:first-child:nth-last-child(3),
-    .product-card img:first-child:nth-last-child(3) ~ img {
-        width: 100%;
-        height: 180px;
-        float: none;
-        margin-right: 0;
-        margin-bottom: 10px;
+    /* Mejoras para imágenes múltiples en móvil - NUEVO */
+    .images-container {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
     }
 
     .modal-content {
