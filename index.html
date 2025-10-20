@@ -31,7 +31,7 @@
                         </a>
                     </div>
                     <h3>GeForce RTX™ 3070 GAMING OC</h3>
-                    <p class="price">$680.000 o 450 USD</p>
+                    <div class="price">$680.000 o 450 USD</div>
                     <p>MUY POCO USO. Se uso para algunos juegos. Retiro: CABA,Saavedra.</p>
                 </div>
 
@@ -48,12 +48,12 @@
                         </a>
                     </div>
                     <h3>Gabinete Sentey Gs-6000 Optimus 2</h3>
-                    <p class="price">$40.000 o 25 USD</p>
+                    <div class="price">$40.000 o 25 USD</div>
                     <p>POCO USO. Se uso 1 año y medio, hasta que cambie de maquina. Retiro: CABA,Saavedra.</p>
                 </div>
 
                  <div class="product-card">
-                    <div class="images-container">
+                    <div class="images-container four-columns">
                         <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/Gabinete Thermaltake1.jpg', this.closest('.product-card'))">
                             <img src="img/Gabinete Thermaltake1.jpg" alt="Gabinete Thermaltake">
                         </a>                     
@@ -68,7 +68,7 @@
                         </a>
                     </div>
                     <h3>Gabinete Thermaltake View 21 Tempered Glass </h3>
-                    <p class="price">$40.000 o 25 USD</p>
+                    <div class="price">$40.000 o 25 USD</div>
                     <p>EXCELENTE ESTADO. 1 año de uso. Retiro: CABA,Saavedra.</p>
                 </div>
 
@@ -82,7 +82,7 @@
                         </a>
                     </div>
                     <h3>Panel Calefactor Eléctrico</h3>
-                    <p class="price">$120.000 o 80 USD</p>
+                    <div class="price">$120.000 o 80 USD</div>
                     <p>C/ MUY POCO USO. Marca: Liliana, Modelo: PPV 500. Panel de vidrio con turbina. Retiro: CABA, Saavedra.</p>
                 </div>
 
@@ -103,7 +103,7 @@
                         </a>
                     </div>
                     <h3>Juego Mesa Maciza Laqueada + 8 Sillas</h3>
-                    <p class="price">$450.000 o 300 USD</p>
+                    <div class="price">$450.000 o 300 USD</div>
                     <p>En MUY buen estado. Mesa de 220x100x80. 8 sillas tapizadas en Lino. Retiro: CABA, Villa General Mitre.</p>
                 </div>
 
@@ -120,7 +120,7 @@
                         </a>
                     </div>
                     <h3>Sillón o sofa 3 Cuerpos + Camastro (Esquinero)</h3>
-                    <p class="price">$350.000 o 230 USD</p>
+                    <div class="price">$350.000 o 230 USD</div>
                     <p>En MUY buen estado, poco uso. Largo: 2 m. Tapizado en Chenille. Retiro: CABA, Villa General Mitre.</p>
                 </div>
              
@@ -137,12 +137,12 @@
                         </a>
                     </div>
                     <h3>Vitrina Cristalero de Madera Maciza</h3>
-                    <p class="price">$600.000 o 380 USD</p>
+                    <div class="price">$600.000 o 380 USD</div>
                     <p>Como nuevo. Material: Madera Maciza de álamo. Medidas: 178cm alto x 72cm ancho x 43cm prof. Retiro: CABA, Villa General Mitre.</p>
                 </div>
 
                 <div class="product-card">
-                    <div class="images-container">
+                    <div class="images-container four-columns">
                         <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/parrillaelectrica1.jpg', this.closest('.product-card'))">
                             <img src="img/parrillaelectrica1.jpg" alt="Parrilla eléctrica">
                         </a>
@@ -157,7 +157,7 @@
                         </a>
                     </div>
                     <h3>Parrila Eléctrica BBQ + Funda</h3>
-                    <p class="price">$130.000 o 80 USD</p>
+                    <div class="price">$130.000 o 80 USD</div>
                     <p>Medidas 96cm x 42cm 60cm . Retiro: CABA, Saavedra.</p>
                     <p>Comen 3 a 5 personas , material de metal y plastico reforzado</p>
                     <p>Tamaño de coccion 38 x 28</p>
@@ -173,7 +173,7 @@
                         </a>
                     </div>
                     <h3>Cama Plegable</h3>
-                    <p class="price">$72.000 o 45 USD</p>
+                    <div class="price">$72.000 o 45 USD</div>
                     <p>Medidas: 1 PLAZA (190 x 90 cm). Plegable, con dos alturas. Retiro: CABA, Villa General Mitre.</p>
                 </div>
 
@@ -184,7 +184,7 @@
                         </a>
                     </div>
                     <h3>Árbol de Navidad 🌲</h3>
-                    <p class="price">$130.000 (100 USD)</p>
+                    <div class="price">$130.000 (100 USD)</div>
                     <p>1 SOLO USO, COMO NUEVO. Marca: Cotidiana. Medida: 2,10m ALTO. Retiro: CABA, Saavedra.</p>
                 </div>
 
@@ -222,7 +222,16 @@
             );
             
             // Encontrar el índice de la imagen clickeada
-            currentImageIndex = productImages.findIndex(src => src.includes(imgSrc.split('/').pop()));
+            const clickedImageName = imgSrc.split('/').pop();
+            currentImageIndex = productImages.findIndex(src => {
+                const srcImageName = src.split('/').pop();
+                return srcImageName === clickedImageName;
+            });
+            
+            // Si no encuentra la imagen, usar el primer índice
+            if (currentImageIndex === -1) {
+                currentImageIndex = 0;
+            }
             
             modal.style.display = "block";
             modalImg.src = imgSrc;
@@ -231,7 +240,7 @@
         }
 
         function changeImage(direction) {
-            if (!currentProductCard) return;
+            if (!currentProductCard || productImages.length === 0) return;
             
             currentImageIndex += direction;
             
@@ -249,7 +258,11 @@
 
         function updateImageCounter() {
             const counter = document.getElementById("imageCounter");
-            counter.textContent = `${currentImageIndex + 1} / ${productImages.length}`;
+            if (productImages.length > 1) {
+                counter.textContent = `${currentImageIndex + 1} / ${productImages.length}`;
+            } else {
+                counter.textContent = ""; // Ocultar contador si solo hay una imagen
+            }
         }
 
         document.querySelector(".close-btn").onclick = function() {
