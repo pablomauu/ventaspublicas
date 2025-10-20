@@ -3,7 +3,8 @@
    ================================================================= */
 
 .modal {
-    display: none;
+    /* Por defecto está oculto */
+    display: none; 
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -11,57 +12,60 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-    overflow: auto; /* Permite scroll si la imagen es muy grande */
-    animation: fadeIn 0.3s;
-    /* Agregamos Flexbox para centrar la imagen */
-    display: flex; /* Por defecto hidden, pero lo preparamos para flex */
+
+    /* Esto se activa con el JS (display: "flex") 
+      y centra la imagen perfectamente 
+    */
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    /* La imagen en sí */
+    /* Esto es la <img> */
     display: block;
-    max-width: 90%; /* Máximo 90% del ancho de la pantalla */
-    max-height: 90vh; /* Máximo 90% de la altura de la vista (viewport height) */
     
-    /* Clave: ajusta la imagen para que quepa completamente sin deformarse */
+    /* Restricciones: nunca más grande que la pantalla */
+    max-width: 95%;
+    max-height: 95vh; /* 95% de la altura de la pantalla */
+
+    /* Dimensiones: automáticas para que mantenga su proporción */
+    width: auto;
+    height: auto;
+    
+    /* LA SOLUCIÓN MÁGICA: 
+       Se asegura de que la imagen quepa SIN ESTIRARSE */
     object-fit: contain; 
     
-    border: 3px solid var(--color-tarjeta);
-    border-radius: 8px;
+    /* Estilos */
+    border-radius: 4px;
     box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
     animation: zoomIn 0.3s;
-    
-    /* Eliminamos el 'margin: 60px auto;' que podía causar problemas
-       y el 'height' fijo que antes estiraba la imagen */
-    margin: auto; /* Esto es un fallback, flexbox se encarga de centrar */
-    width: auto; /* Permite que la imagen tome su ancho natural */
-    height: auto; /* Permite que la imagen tome su altura natural */
+    margin: 0; /* Quitamos márgenes que puedan molestar */
 }
 
 .close-btn {
-    position: fixed; /* Lo fijamos a la ventana, no al scroll del modal */
-    top: 25px;
-    right: 35px;
+    position: fixed; /* Fijo en la pantalla */
+    top: 15px;
+    right: 15px;
     color: var(--color-texto-principal);
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    z-index: 1001; /* Asegura que esté por encima de la imagen */
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo para mayor visibilidad */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    z-index: 1001; /* Siempre encima de la imagen */
+    
+    /* Botón circular para mejor visibilidad */
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 40px;
+    height: 40px;
+    line-height: 40px; /* Centra la 'x' */
     text-align: center;
+    border-radius: 50%;
 }
 
 .close-btn:hover {
     color: var(--color-acento);
-    transform: scale(1.2);
-    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
 }
 
 /* Animaciones */
@@ -76,32 +80,29 @@
 }
 
 /* =================================================================
-   6. DISEÑO ADAPTABLE (SOLO la parte del modal en mobile)
+   6. DISEÑO ADAPTABLE (PARTE DEL MODAL)
    ================================================================= */
 
-/* ... (el resto de tus media queries de 768px se mantiene igual) ... */
+@media (max-width: 768px) {
+    /* ... (tus otros estilos de tablet) ... */
 
-@media (max-width: 480px) {
-    /* ... (el resto de tus estilos para mobile se mantiene igual) ... */
-
-    .modal {
-        padding-top: 0; /* No necesitamos padding-top en mobile con flexbox */
-    }
-    
     .modal-content {
-        max-width: 95%; /* Un poco más de margen en los bordes */
-        max-height: 95vh;
-        border-radius: 0;
-        border: none;
-        box-shadow: none; /* Quitamos la sombra en mobile para un look más limpio */
+        /* No necesitamos cambiar nada, 
+           las reglas de arriba ya son responsivas */
     }
 
     .close-btn {
-        top: 15px;
-        right: 15px; /* Ajustamos la posición para mobile */
-        font-size: 30px;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
+        /* No necesitamos cambiar nada */
+    }
+}
+
+@media (max-width: 480px) {
+    /* ... (tus otros estilos de mobile) ... */
+    
+    /* En mobile quitamos el borde y sombra para un look más limpio */
+    .modal-content {
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
     }
 }
