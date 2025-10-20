@@ -1,8 +1,224 @@
 /* =================================================================
-   6. DISEÑO ADAPTABLE (RESPONSIVE) - CORREGIDO
+   1. VARIABLES DE COLOR Y CONFIGURACIÓN GLOBAL
    ================================================================= */
 
-/* Para pantallas de 768px o menos (Tablets) */
+:root {
+    --color-fondo: #0a0a0a;
+    --color-tarjeta: #1a1a1a;
+    --color-texto-principal: #f0f0f0;
+    --color-texto-secundario: #a0a0a0;
+    --color-acento: #00aaff;
+    --color-borde: #333333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+}
+
+/* =================================================================
+   2. ENCABEZADO Y TÍTULOS
+   ================================================================= */
+
+header {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--color-texto-principal);
+    font-weight: 700;
+}
+
+.category-section {
+    padding: 1rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.category-section h2 {
+    font-size: 2.2rem;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid var(--color-acento);
+}
+
+/* =================================================================
+   3. CONTENEDOR DE PRODUCTOS (GRILLA MEJORADA)
+   ================================================================= */
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =================================================================
+   4. TARJETA DE PRODUCTO (CORREGIDA)
+   ================================================================= */
+
+.product-card {
+    background-color: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 170, 255, 0.2);
+    border-color: var(--color-acento);
+}
+
+/* --- INICIO DE LA CORRECCIÓN --- */
+
+/* Wrapper (el <a>) */
+.image-wrapper {
+    display: inline-block;
+    width: 31%;
+    margin: 1%;
+    vertical-align: top;
+    border: 1px solid var(--color-borde);
+    border-radius: 8px;
+    overflow: hidden; /* Clave para que la imagen no se desborde */
+    cursor: zoom-in;
+    transition: border-color 0.3s, opacity 0.3s;
+    
+    /* Regla por defecto: contenedores cuadrados (para 2, 3, 4+ imágenes) */
+    aspect-ratio: 1 / 1; 
+}
+
+.image-wrapper:hover {
+    opacity: 0.8;
+    border-color: var(--color-acento);
+}
+
+/* Caso especial: 1 sola imagen (ocupa todo el ancho y es panorámica) */
+.product-card .image-wrapper:first-child:last-child {
+    width: 100%;
+    margin: 0 0 1.5rem 0;
+    aspect-ratio: 16 / 10; /* Proporción panorámica */
+}
+
+/* Caso especial: 2 imágenes (ocupan mitad y mitad) */
+.product-card .image-wrapper:first-child:nth-last-child(2),
+.product-card .image-wrapper:first-child:nth-last-child(2) ~ .image-wrapper {
+     width: 48%;
+     margin: 1%;
+     /* Mantiene el 'aspect-ratio: 1/1' de la regla general */
+}
+
+/* La imagen (<img>) AHORA SÓLO LLENA EL CONTENEDOR */
+.product-card img {
+    width: 100%;
+    height: 100%; /* Ocupa el 100% del wrapper */
+    display: block;
+    object-fit: cover; /* Clave: recorta la imagen para que quepa, NUNCA la estira */
+    
+    /* Reseteamos todo lo que podía dar conflicto */
+    aspect-ratio: unset;
+    float: none;
+    margin-right: 0;
+}
+
+/* --- FIN DE LA CORRECCIÓN --- */
+
+
+.product-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-texto-principal);
+    clear: both;
+    margin-top: 1rem;
+}
+
+.product-card .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    margin-bottom: 1rem;
+}
+
+.product-card p {
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+}
+
+
+/* =================================================================
+   5. MODAL PARA IMÁGENES EXPANDIDAS
+   ================================================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    display: block;
+    margin: 60px auto;
+    max-width: 90%;
+    max-height: calc(100vh - 120px);
+    border: 3px solid var(--color-tarjeta);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+    animation: zoomIn 0.3s;
+}
+
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: var(--color-texto-principal);
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: var(--color-acento);
+    transform: scale(1.2);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* =================================================================
+   6. DISEÑO ADAPTABLE (AHORA MÁS SIMPLE)
+   ================================================================= */
+
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
@@ -28,7 +244,6 @@
     }
 }
 
-/* Para pantallas de 480px o menos (Celulares) */
 @media (max-width: 480px) {
     h1 {
         font-size: 2rem;
@@ -39,34 +254,19 @@
         padding: 0 1rem;
     }
     
-    /* --- INICIO DE LA CORRECCIÓN --- */
-
-    /* 1. Regla general para apilar TODOS los wrappers en mobile */
-    .product-card .image-wrapper {
-        display: block;  /* Los convertimos en bloque para apilarlos */
-        width: 100%;     /* Hacemos que ocupen todo el ancho */
-        height: auto;
+    /* Esta regla AHORA es mucho más simple.
+      Solo apilamos los wrappers, y ellos ya saben
+      qué proporción tener (1:1 o 16:10) gracias a la Sección 4.
+    */
+    .product-card .image-wrapper,
+    .product-card .image-wrapper:first-child:last-child,
+    .product-card .image-wrapper:first-child:nth-last-child(2),
+    .product-card .image-wrapper:first-child:nth-last-child(2) ~ .image-wrapper {
+        display: block; /* Los apilamos */
+        width: 100%;    /* Ocupan todo el ancho */
         margin: 0 0 10px 0; /* Margen solo abajo */
-        /* Quitamos el aspect-ratio: 16/10 de aquí */
+        /* Ya no necesitamos tocar el aspect-ratio aquí */
     }
-
-    /* 2. SÓLO al wrapper de 1 imagen (ej: Árbol de Navidad)
-          le aplicamos el ratio panorámico */
-    .product-card .image-wrapper:first-child:last-child {
-        aspect-ratio: 16 / 10;
-    }
-
-    /* 3. Y a la IMAGEN dentro de ese wrapper de 1 sola imagen,
-          TAMBIÉN le damos el mismo ratio para que no haya conflicto */
-    .product-card .image-wrapper:first-child:last-child img {
-        aspect-ratio: 16 / 10; /* Esto sobreescribe el 1/1 de desktop */
-    }
-
-    /* Las imágenes de productos con 2, 3 o 4 fotos (RTX, Sofá, etc.)
-       simplemente usarán la regla .product-card img { aspect-ratio: 1/1 }
-       que ya tenían, y se verán cuadradas y apiladas. ¡Sin estirarse! */
-
-    /* --- FIN DE LA CORRECCIÓN --- */
 
     .modal-content {
         max-width: 100%;
