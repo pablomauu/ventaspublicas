@@ -1,10 +1,164 @@
 /* =================================================================
-   5. MODAL PARA IMÁGENES EXPANDIDAS (CORREGIDO)
+   1. VARIABLES DE COLOR Y CONFIGURACIÓN GLOBAL
+   ================================================================= */
+
+:root {
+    --color-fondo: #0a0a0a;
+    --color-tarjeta: #1a1a1a;
+    --color-texto-principal: #f0f0f0;
+    --color-texto-secundario: #a0a0a0;
+    --color-acento: #00aaff;
+    --color-borde: #333333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto-principal);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+}
+
+/* =================================================================
+   2. ENCABEZADO Y TÍTULOS
+   ================================================================= */
+
+header {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+h1 {
+    font-size: 3rem;
+    color: var(--color-texto-principal);
+    font-weight: 700;
+}
+
+.category-section {
+    padding: 1rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.category-section h2 {
+    font-size: 2.2rem;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 3px solid var(--color-acento);
+}
+
+/* =================================================================
+   3. CONTENEDOR DE PRODUCTOS (GRILLA MEJORADA)
+   ================================================================= */
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* =================================================================
+   4. TARJETA DE PRODUCTO (CON SOPORTE PARA MÚLTIPLES IMÁGENES)
+   ================================================================= */
+
+.product-card {
+    background-color: var(--color-tarjeta);
+    border: 1px solid var(--color-borde);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 170, 255, 0.2);
+    border-color: var(--color-acento);
+}
+
+/* Wrapper para imágenes clickeables */
+.image-wrapper {
+    display: block;
+    cursor: zoom-in;
+    transition: transform 0.3s;
+    margin-bottom: 1.5rem;
+}
+
+.image-wrapper:hover {
+    transform: scale(1.02);
+}
+
+/* Estilo base para todas las imágenes */
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+/* Caso especial: Cuando hay exactamente 3 imágenes */
+.product-card img:first-child:nth-last-child(3),
+.product-card img:first-child:nth-last-child(3) ~ img {
+    width: calc(33.333% - 5.333px);
+    height: 120px;
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.product-card img:first-child:nth-last-child(3):last-child,
+.product-card img:first-child:nth-last-child(3) ~ img:last-child {
+    margin-right: 0;
+}
+
+/* Clearfix para contener los floats */
+.product-card::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Ajuste para el título cuando hay 3 imágenes */
+.product-card img:first-child:nth-last-child(3) ~ h3 {
+    clear: both;
+    padding-top: 0.5rem;
+}
+
+.product-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--color-texto-principal);
+}
+
+.product-card .price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    margin-bottom: 1rem;
+}
+
+.product-card p {
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+}
+
+/* =================================================================
+   5. MODAL PARA IMÁGENES EXPANDIDAS
    ================================================================= */
 
 .modal {
-    /* Por defecto está oculto */
-    display: none; 
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -12,60 +166,35 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
-
-    /* Esto se activa con el JS (display: "flex") 
-      y centra la imagen perfectamente 
-    */
-    justify-content: center;
-    align-items: center;
+    overflow: auto;
+    animation: fadeIn 0.3s;
 }
 
 .modal-content {
-    /* Esto es la <img> */
     display: block;
-    
-    /* Restricciones: nunca más grande que la pantalla */
-    max-width: 95%;
-    max-height: 95vh; /* 95% de la altura de la pantalla */
-
-    /* Dimensiones: automáticas para que mantenga su proporción */
-    width: auto;
-    height: auto;
-    
-    /* LA SOLUCIÓN MÁGICA: 
-       Se asegura de que la imagen quepa SIN ESTIRARSE */
-    object-fit: contain; 
-    
-    /* Estilos */
-    border-radius: 4px;
+    margin: 60px auto;
+    max-width: 90%;
+    max-height: calc(100vh - 120px);
+    border: 3px solid var(--color-tarjeta);
+    border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
     animation: zoomIn 0.3s;
-    margin: 0; /* Quitamos márgenes que puedan molestar */
 }
 
 .close-btn {
-    position: fixed; /* Fijo en la pantalla */
-    top: 15px;
-    right: 15px;
+    position: absolute;
+    top: 25px;
+    right: 35px;
     color: var(--color-texto-principal);
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    z-index: 1001; /* Siempre encima de la imagen */
-    
-    /* Botón circular para mejor visibilidad */
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 40px;
-    height: 40px;
-    line-height: 40px; /* Centra la 'x' */
-    text-align: center;
-    border-radius: 50%;
 }
 
 .close-btn:hover {
     color: var(--color-acento);
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 /* Animaciones */
@@ -80,29 +209,60 @@
 }
 
 /* =================================================================
-   6. DISEÑO ADAPTABLE (PARTE DEL MODAL)
+   6. DISEÑO ADAPTABLE (RESPONSIVE)
    ================================================================= */
 
 @media (max-width: 768px) {
-    /* ... (tus otros estilos de tablet) ... */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .category-section h2 {
+        font-size: 1.8rem;
+    }
+    
+    .product-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
 
     .modal-content {
-        /* No necesitamos cambiar nada, 
-           las reglas de arriba ya son responsivas */
+        max-width: 95%;
+        margin: 50px auto;
     }
 
     .close-btn {
-        /* No necesitamos cambiar nada */
+        top: 15px;
+        right: 25px;
+        font-size: 35px;
     }
 }
 
 @media (max-width: 480px) {
-    /* ... (tus otros estilos de mobile) ... */
+    body {
+        padding: 0.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
     
-    /* En mobile quitamos el borde y sombra para un look más limpio */
+    .product-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Apilamiento vertical para imágenes múltiples en móvil */
+    .product-card img:first-child:nth-last-child(3),
+    .product-card img:first-child:nth-last-child(3) ~ img {
+        width: 100%;
+        height: 180px;
+        float: none;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
     .modal-content {
+        max-width: 100%;
         border-radius: 0;
         border: none;
-        box-shadow: none;
     }
 }
