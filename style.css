@@ -179,6 +179,7 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
     animation: zoomIn 0.3s;
+    position: relative;
 }
 
 .close-btn {
@@ -190,25 +191,33 @@ h1 {
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    z-index: 1001;
+    z-index: 1002;
+    background-color: rgba(0, 0, 0, 0.5);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
 .close-btn:hover {
     color: var(--color-acento);
-    transform: scale(1.2);
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
 }
 
-/* Flechas de navegación */
+/* Flechas de navegación SOBRE LA IMAGEN */
 .nav-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     color: var(--color-texto-principal);
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
-    z-index: 1001;
+    transition: all 0.3s ease;
+    z-index: 1002;
     background-color: rgba(0, 0, 0, 0.5);
     width: 60px;
     height: 60px;
@@ -217,11 +226,14 @@ h1 {
     justify-content: center;
     border-radius: 50%;
     user-select: none;
+    opacity: 0.8;
 }
 
 .nav-btn:hover {
     color: var(--color-acento);
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
 }
 
 .prev-btn {
@@ -240,10 +252,12 @@ h1 {
     transform: translateX(-50%);
     color: var(--color-texto-principal);
     font-size: 18px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 5px 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px 20px;
     border-radius: 20px;
-    z-index: 1001;
+    z-index: 1002;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
 }
 
 /* Animaciones */
@@ -283,6 +297,8 @@ h1 {
         top: 15px;
         right: 25px;
         font-size: 35px;
+        width: 45px;
+        height: 45px;
     }
 
     .nav-btn {
@@ -297,6 +313,12 @@ h1 {
 
     .next-btn {
         right: 15px;
+    }
+    
+    .image-counter {
+        font-size: 16px;
+        padding: 6px 16px;
+        bottom: 20px;
     }
 }
 
@@ -327,11 +349,41 @@ h1 {
         max-width: 100%;
         border-radius: 0;
         border: none;
+        margin: 0;
+        height: 100vh;
+        max-height: 100vh;
+        object-fit: contain;
     }
 
     .nav-btn {
         font-size: 30px;
+        width: 45px;
+        height: 45px;
+    }
+    
+    .close-btn {
+        top: 10px;
+        right: 15px;
         width: 40px;
         height: 40px;
+        font-size: 30px;
+    }
+    
+    .image-counter {
+        bottom: 15px;
+        font-size: 14px;
+        padding: 5px 14px;
+    }
+}
+
+/* Efecto de desvanecimiento para las flechas en dispositivos táctiles */
+@media (hover: none) {
+    .nav-btn {
+        opacity: 0.6;
+    }
+    
+    .nav-btn:active {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.8);
     }
 }
