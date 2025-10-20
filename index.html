@@ -5,207 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venta de Productos</title>
     
-    <style>
-        /* --- Estilos Globales (Mobile First) --- */
-        
-        /* Un reseteo básico para que todo se comporte igual */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <link rel="stylesheet" href="style.css">
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f4f7;
-            color: #333;
-            line-height: 1.5;
-        }
-
-        /* Hacemos que todas las imágenes sean responsivas por defecto */
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px; /* Pequeño redondeo para las imágenes */
-        }
-
-        /* --- Estilos del Layout --- */
-        
-        header {
-            background-color: #ffffff;
-            padding: 20px 15px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #ddd;
-        }
-
-        header h1 {
-            font-size: 1.8em;
-            color: #2c3e50;
-        }
-
-        main {
-            /* Padding para que el contenido no se pegue a los bordes en mobile */
-            padding: 20px 15px;
-            max-width: 1200px; /* Ancho máximo para pantallas grandes */
-            margin: 0 auto;     /* Centra el contenido en pantallas grandes */
-        }
-
-        .category-section h2 {
-            font-size: 1.5em;
-            color: #34495e;
-            border-bottom: 2px solid #bdc3c7;
-            padding-bottom: 10px;
-            margin-top: 25px;
-            margin-bottom: 20px;
-        }
-
-        /* --- Contenedor de Productos (Mobile First) --- */
-        
-        .product-container {
-            display: flex;
-            flex-direction: column; /* En mobile, apilamos los productos verticalmente */
-            gap: 25px; /* Espacio entre las tarjetas */
-        }
-
-        /* --- Tarjeta de Producto --- */
-        
-        .product-card {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* Para que el shadow se vea bien */
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .product-card h3 {
-            font-size: 1.25em;
-            margin-top: 15px;
-            margin-bottom: 8px;
-        }
-        
-        .product-card .price {
-            font-size: 1.15em;
-            font-weight: bold;
-            color: #27ae60; /* Un verde para el precio */
-            margin-bottom: 12px;
-        }
-
-        .product-card p {
-            font-size: 0.95em;
-            margin-bottom: 10px;
-        }
-
-        /* --- Imágenes del Producto --- */
-
-        /* Usamos flexbox para alinear las imágenes pequeñas horizontalmente */
-        .product-card .image-wrapper {
-            display: inline-block; /* Las hacemos fluir */
-            width: 31%; /* Aprox 3 imágenes por fila */
-            margin: 1%;
-            border: 1px solid #eee;
-            border-radius: 4px;
-            overflow: hidden;
-            transition: opacity 0.2s;
-        }
-        
-        .product-card .image-wrapper:hover {
-            opacity: 0.8;
-        }
-
-        .product-card .image-wrapper img {
-            /* Hacemos las imágenes cuadradas para que se vean ordenadas */
-            aspect-ratio: 1 / 1;
-            object-fit: cover; /* Evita que la imagen se deforme */
-        }
-
-
-        /* --- Modal de Imagen (Ya estaba bien) --- */
-        
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.9);
-            padding-top: 60px; /* Espacio para el botón de cerrar */
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 90%; /* Más adaptable en mobile */
-            max-width: 700px; /* Límite en desktop */
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-btn:hover {
-            color: #bbb;
-        }
-
-
-        /* ===========================================================
-         MEDIA QUERY: La Magia para Desktop 
-         
-         Estos estilos SOLO se aplican si la pantalla 
-         mide 768px o MÁS (tablets y desktops).
-         ===========================================================
-        */
-        @media (min-width: 768px) {
-            
-            main {
-                padding: 30px; /* Más padding en desktop */
-            }
-
-            header h1 {
-                font-size: 2.2em;
-            }
-
-            /* --- Contenedor de Productos (Desktop) --- */
-            
-            .product-container {
-                /* Cambiamos a Grid para mostrar múltiples columnas */
-                display: grid;
-                
-                /* Crea columnas automáticas:
-                  - Intenta que midan 350px.
-                  - Si no entran, las achica (minmax).
-                  - Si sobran espacio, las agranda (1fr).
-                  - auto-fit: crea tantas columnas como quepan.
-                */
-                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                gap: 30px; /* Más espacio entre tarjetas en desktop */
-            }
-
-            .product-card {
-                padding: 20px;
-                /* Efecto sutil al pasar el mouse */
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
-            }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -222,13 +23,13 @@
                                             
                 <div class="product-card">
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX3070_4.jpg')">
-                        <img src="img/RTX3070_4.jpg" alt="RTX 3070">
+                        <img src="img/RTX3070_4.jpg" alt="Panel calefactor eléctrico Liliana">
                     </a>                     
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX 3070.jpg')">
-                        <img src="img/RTX 3070.jpg" alt="RTX 3070">
+                        <img src="img/RTX 3070.jpg" alt="Panel calefactor eléctrico Liliana">
                     </a>
                     <a href="#" class="image-wrapper" onclick="expandImage(event, 'img/RTX 3070_2.jpg')">
-                        <img src="img/RTX 3070_2.jpg" alt="RTX 3070">
+                        <img src="img/RTX 3070_2.jpg" alt="Panel calefactor eléctrico Liliana">
                     </a>
                     <h3>GeForce RTX™ 3070 GAMING OC</h3>
                     <p class="price">$680.000 o 450 USD</p>
@@ -363,12 +164,12 @@
             
             modal.style.display = "block";
             modalImg.src = imgSrc;
-            document.body.style.overflow = "hidden"; // Bloquea scroll al abrir modal
+            document.body.style.overflow = "hidden";
         }
 
         document.querySelector(".close-btn").onclick = function() {
             document.getElementById("imageModal").style.display = "none";
-            document.body.style.overflow = "auto"; // Restaura scroll al cerrar
+            document.body.style.overflow = "auto";
         };
 
         window.onclick = function(event) {
